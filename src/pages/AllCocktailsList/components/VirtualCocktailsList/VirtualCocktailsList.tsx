@@ -4,8 +4,12 @@ import "./VirtualCocktailsList.scss";
 import { FixedSizeGrid, VariableSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import { useAppSelector } from "../../../../appState/store";
-import { selectAllCocktails } from "../../../../appState/cocktails/cocktails.selectors";
+import {
+  selectAllCocktails,
+  selectHasCocktailsFetchError,
+} from "../../../../appState/cocktails/cocktails.selectors";
 import CocktailLoadingSpinner from "../CocktailLoadingSpinner/CocktailLoadingSpinner";
+import ErrorState from "../ErrorState/ErrorState";
 
 function CocktailItem({
   columnIndex,
@@ -31,11 +35,14 @@ const COLUMN_WIDTH = 200;
 
 export default function VirtualCocktailsList() {
   const allCocktails = useAppSelector(selectAllCocktails);
+  const hasError = useAppSelector(selectHasCocktailsFetchError);
 
   return (
     <div className="virtual-cocktails-list">
       {allCocktails.length ? (
         <h1>have {allCocktails.length} drinks</h1>
+      ) : hasError ? (
+        <ErrorState />
       ) : (
         <CocktailLoadingSpinner />
       )}

@@ -3,10 +3,12 @@ import { Cocktail } from "../../types/cocktails";
 
 type CocktailsState = {
   allCocktails: Cocktail[];
+  hasError: boolean;
 };
 
 const initialState: CocktailsState = {
   allCocktails: [],
+  hasError: false,
 };
 
 const cocktailsSlice = createSlice({
@@ -19,9 +21,16 @@ const cocktailsSlice = createSlice({
     ) => {
       state.allCocktails = allCocktails;
     },
+    setHasCocktailsFetchError: (
+      state,
+      { payload: hasError }: PayloadAction<boolean>
+    ) => {
+      state.hasError = hasError;
+    },
   },
 });
 
-export const { setAllCocktails } = cocktailsSlice.actions;
+export const { setAllCocktails, setHasCocktailsFetchError } =
+  cocktailsSlice.actions;
 
 export default cocktailsSlice;
