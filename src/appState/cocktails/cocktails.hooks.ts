@@ -47,7 +47,10 @@ export function useInitializeCocktailsList() {
         .filter(Boolean)
         .map(toFormattedCocktail);
 
-      dispatch(setAllCocktails(formattedAllCocktails));
+      // this timeout is here only to show off the loader animation
+      setTimeout(() => {
+        dispatch(setAllCocktails(formattedAllCocktails));
+      }, 2000);
     });
   }, [dispatch]);
 }

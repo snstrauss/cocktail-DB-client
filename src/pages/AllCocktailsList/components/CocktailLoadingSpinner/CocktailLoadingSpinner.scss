@@ -1,0 +1,41 @@
+.cocktail-loading-spinner {
+  font-size: 25px;
+  --y-translation: 2em;
+  --x-translation: 1em;
+  --rotation: 20deg;
+
+  path {
+    fill: white;
+  }
+
+  animation: jumping-drink 3s ease-in-out infinite;
+
+  @keyframes jumping-drink {
+    0% {
+      transform: translate(0, 0) rotate(0);
+    }
+    20% {
+      transform: translate(0, 0) rotate(0);
+    }
+    40% {
+      transform: translate(
+          calc(-1 * var(--x-translation)),
+          calc(-1 * var(--y-translation))
+        )
+        rotate(calc(-1 * var(--rotation)));
+    }
+    60% {
+      transform: translate(0, 0) rotate(0);
+    }
+    80% {
+      transform: translate(
+          var(--x-translation),
+          calc(-1 * var(--y-translation))
+        )
+        rotate(var(--rotation));
+    }
+    100% {
+      transform: translate(0, 0) rotate(0);
+    }
+  }
+}
