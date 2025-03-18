@@ -1,0 +1,132 @@
+/* CSS Reset for cross-browser consistency */
+
+/* Box model */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+}
+
+/* Body */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 100%;
+  line-height: 1.5;
+  background-color: #fff;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* react root */
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Universal link styles */
+a {
+  text-decoration: none;
+  color: inherit;
+  background-color: transparent;
+}
+
+/* Remove list styling */
+ul, ol {
+  list-style: none;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Form elements */
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background-color: transparent;
+  border: none;
+}
+
+/* Inputs & Textareas */
+input,
+textarea {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+}
+
+/* Button Styling */
+button {
+  cursor: pointer;
+}
+
+/* Form Field Focus */
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+  outline: none;
+}
+
+/* Responsive Font Sizes for Mobile Devices */
+html {
+  font-size: 16px; /* Default size for PC */
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 14px; /* Adjust for smaller screens like mobile */
+  }
+}
+
+/* Better mobile scaling */
+@viewport {
+  width: device-width;
+  initial-scale: 1;
+}
+
+/* Normalize Scrolling */
+html, body {
+  height: 100%;
+}
+
+/* Basic utility classes for layout */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
