@@ -1,5 +1,5 @@
 import "./CocktailLoadingSpinner.scss";
-import CocktailIcon from "../../../../img/martini-glass-citrus-solid.svg?react";
+import CocktailIcon from "../../img/martini-glass-citrus-solid.svg?react";
 
 const size = 100;
 

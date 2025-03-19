@@ -1,5 +1,5 @@
 import "./ErrorState.scss";
-import BrokenGlass from "../../../../img/wine-glass-crack-regular.svg?react";
+import BrokenGlass from "../../img/wine-glass-crack-regular.svg?react";
 
 const size = 100;
 
