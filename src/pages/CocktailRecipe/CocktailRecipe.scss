@@ -1,3 +1,17 @@
+@use "../../common/mixins.scss" as *;
+
 .cocktail-recipe {
-  background-color: goldenrod;
+  @include flex($align: flex-start, $justify: flex-start, $gap: 1em);
+
+  &__instructions {
+    overflow-y: scroll;
+
+    section {
+      background-color: lightblue;
+      padding: 1rem;
+      margin-bottom: 1rem;
+
+      white-space: pre-wrap;
+    }
+  }
 }

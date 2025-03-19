@@ -31,25 +31,31 @@ const toFormattedCocktail = ({
   strCategory,
   strAlcoholic,
   strGlass,
-}: RawCocktailData): Cocktail => ({
-  id: idDrink,
-  name: strDrink,
-  thumbnail: strDrinkThumb,
-  image: strImageSource,
+  ...restOfProps
+}: RawCocktailData): Cocktail => {
+  return {
+    id: idDrink,
+    name: strDrink,
+    thumbnail: strDrinkThumb,
+    image: strImageSource,
 
-  instructions: {
-    en: strInstructions,
-    es: strInstructionsES,
-    de: strInstructionsDE,
-    fr: strInstructionsFR,
-    it: strInstructionsIT,
-  },
-  extraDetails: {
-    category: strCategory,
-    alcoholic: strAlcoholic,
-    glass: strGlass,
-  },
-});
+    instructions: {
+      en: strInstructions,
+      es: strInstructionsES,
+      de: strInstructionsDE,
+      fr: strInstructionsFR,
+      it: strInstructionsIT,
+    },
+
+    extraDetails: {
+      category: strCategory,
+      alcoholic: strAlcoholic,
+      glass: strGlass,
+    },
+
+    rawIngredients: restOfProps,
+  };
+};
 
 export function useInitializeCocktailsList() {
   const dispatch = useDispatch();
@@ -108,7 +114,6 @@ export function useCocktailById(cocktailId: string) {
 
   useEffect(() => {
     fetchSingleCocktail(cocktailId).then((response) => {
-      console.log(response);
       if (!response.drinks) {
         dispatch(setCocktailsFetchErrorMessage("Cocktail not found"));
       } else {

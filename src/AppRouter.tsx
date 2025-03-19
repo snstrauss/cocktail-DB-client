@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import CommonPageLayout from "./pages/CommonPageLayout/CommonPageLayout";
 import HomePage from "./pages/HomePage/HomePage";
-import CocktailRecipe from "./pages/CocktailRecipe/CocktailRecipe";
+import CocktailRecipePage from "./pages/CocktailRecipe/CocktailRecipe";
 
 export default function AppRouter() {
   return (
@@ -9,7 +9,7 @@ export default function AppRouter() {
       <Routes>
         <Route element={<CommonPageLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/recipe/:cocktailId" element={<CocktailRecipe />} />
+          <Route path="/recipe/:cocktailId" element={<CocktailRecipePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
