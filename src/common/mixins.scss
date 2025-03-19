@@ -7,3 +7,11 @@
     gap: $gap;
   }
 }
+
+@mixin on-mobile {
+  & {
+    .common-page-layout--on-mobile & {
+      @content;
+    }
+  }
+}
