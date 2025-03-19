@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import AllCocktailsList from "./pages/AllCocktailsList/AllCocktailsList";
 import CommonPageLayout from "./pages/CommonPageLayout/CommonPageLayout";
+import HomePage from "./pages/HomePage/HomePage";
 import CocktailRecipe from "./pages/CocktailRecipe/CocktailRecipe";
 
 export default function AppRouter() {
@@ -8,7 +8,7 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route element={<CommonPageLayout />}>
-          <Route path="/" element={<AllCocktailsList />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/recipe/:drink" element={<CocktailRecipe />} />
         </Route>
       </Routes>

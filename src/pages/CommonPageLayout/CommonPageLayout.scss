@@ -9,7 +9,5 @@
     height: 100%;
 
     padding: 1rem;
-
-    @include flex($justify: flex-start, $gap: 1rem);
   }
 }
