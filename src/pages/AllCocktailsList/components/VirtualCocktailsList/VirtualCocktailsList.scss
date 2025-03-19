@@ -1,2 +1,16 @@
 .virtual-cocktails-list {
+  border: 3px solid blue;
+
+  
+  .cocktail-item {
+    border: 1px solid green;
+    
+    &__title {
+      border: 2px solid deeppink;
+    }
+
+    &--empty {
+      background-color: #222;
+    }
+  }
 }

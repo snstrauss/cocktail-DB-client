@@ -1,8 +1,6 @@
-// import { CSSProperties } from "react";
-// import "./InfiniteCocktailsList.scss";
 import "./VirtualCocktailsList.scss";
-import { FixedSizeGrid, VariableSizeList } from "react-window";
-import InfiniteLoader from "react-window-infinite-loader";
+import { CSSProperties, useMemo } from "react";
+import { FixedSizeGrid } from "react-window";
 import { useAppSelector } from "../../../../appState/store";
 import {
   selectAllCocktails,
@@ -10,6 +8,27 @@ import {
 } from "../../../../appState/cocktails/cocktails.selectors";
 import CocktailLoadingSpinner from "../CocktailLoadingSpinner/CocktailLoadingSpinner";
 import ErrorState from "../ErrorState/ErrorState";
+import bem from "../../../../common/bem";
+
+const COLUMNS_COUNT = 3;
+const ROW_HEIGHT = 100;
+const COLUMN_WIDTH = 200;
+
+type ItemFromStateProps = {
+  columnIndex: number;
+  rowIndex: number;
+};
+
+function useItemFromGridIndices({ columnIndex, rowIndex }: ItemFromStateProps) {
+  const allCocktails = useAppSelector(selectAllCocktails);
+
+  return useMemo(
+    () => allCocktails[rowIndex * COLUMNS_COUNT + columnIndex],
+    [allCocktails, columnIndex, rowIndex]
+  );
+}
+
+const itemClassNames = bem("cocktail-item");
 
 function CocktailItem({
   columnIndex,
@@ -20,27 +39,42 @@ function CocktailItem({
   rowIndex: number;
   style: CSSProperties;
 }) {
-  debugger;
+  const cocktail = useItemFromGridIndices({ columnIndex, rowIndex });
 
   return (
-    <div className="cocktail-item" style={style}>
-      <h3>Cocktail {rowIndex}</h3>
+    <div
+      className={itemClassNames({
+        empty: !cocktail,
+      })}
+      style={style}
+    >
+      <h3 className={itemClassNames("title")}>{cocktail?.name ?? "NOPE"}</h3>
     </div>
   );
 }
-
-const COLUMNS_COUNT = 3;
-const ROW_HEIGHT = 100;
-const COLUMN_WIDTH = 200;
 
 export default function VirtualCocktailsList() {
   const allCocktails = useAppSelector(selectAllCocktails);
   const hasError = useAppSelector(selectHasCocktailsFetchError);
 
+  const rowsCount = useMemo(
+    () => Math.ceil(allCocktails.length / COLUMNS_COUNT),
+    [allCocktails]
+  );
+
   return (
     <div className="virtual-cocktails-list">
       {allCocktails.length ? (
-        <h1>have {allCocktails.length} drinks</h1>
+        <FixedSizeGrid
+          columnCount={COLUMNS_COUNT}
+          columnWidth={COLUMN_WIDTH}
+          rowCount={rowsCount}
+          rowHeight={ROW_HEIGHT}
+          width={window.innerWidth * 0.9}
+          height={window.innerHeight * 0.8}
+        >
+          {CocktailItem}
+        </FixedSizeGrid>
       ) : hasError ? (
         <ErrorState />
       ) : (
