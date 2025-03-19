@@ -1,11 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { fetchAllCocktails } from "../../services/cocktailsdb.api";
+import {
+  fetchAllCocktails,
+  searchCocktails,
+} from "../../services/cocktailsdb.api";
 import { Cocktail, RawCocktailData } from "../../types/cocktails";
 import {
   setAllCocktails,
-  setHasCocktailsFetchError,
-} from "./cocktails.reducer";
+  setFilteredCocktails,
+  setCocktailsFetchErrorMessage,
+} from "./cocktails.slice";
+import useDebouncedCallback from "../../hooks/useDebouncedCallback";
 
 const toFormattedCocktail = ({
   idDrink,
@@ -57,7 +62,36 @@ export function useInitializeCocktailsList() {
         }, 2000);
       })
       .catch(() => {
-        dispatch(setHasCocktailsFetchError(true));
+        dispatch(
+          setCocktailsFetchErrorMessage("Error initializing drinks library")
+        );
       });
   }, [dispatch]);
+}
+
+export function useDebouncedCocktailsSearch() {
+  const dispatch = useDispatch();
+
+  return useDebouncedCallback((debouncedValue) => {
+    if (typeof debouncedValue === "string") {
+      if (debouncedValue.length === 0) {
+        // search field is empty - fall back to the full list from store
+        dispatch(setCocktailsFetchErrorMessage(null));
+        dispatch(setFilteredCocktails([]));
+      } else {
+        searchCocktails(debouncedValue).then((filteredCocktails) => {
+          if (filteredCocktails.drinks) {
+            dispatch(setCocktailsFetchErrorMessage(null));
+            dispatch(
+              setFilteredCocktails(
+                filteredCocktails.drinks.map(toFormattedCocktail)
+              )
+            );
+          } else {
+            dispatch(setCocktailsFetchErrorMessage("No such drink exists"));
+          }
+        });
+      }
+    }
+  });
 }

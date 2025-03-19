@@ -1,56 +1,30 @@
 import "./VirtualCocktailsList.scss";
-import { CSSProperties, useMemo } from "react";
+import { useMemo } from "react";
 import { FixedSizeGrid } from "react-window";
 import { useAppSelector } from "../../../../appState/store";
 import {
   selectAllCocktails,
-  selectHasCocktailsFetchError,
+  selectCocktailsFetchErrorMessage,
+  selectFilteredCocktails,
 } from "../../../../appState/cocktails/cocktails.selectors";
 import CocktailLoadingSpinner from "../../../../components/CocktailLoadingSpinner/CocktailLoadingSpinner";
 import ErrorState from "../../../../components/ErrorState/ErrorState";
 import bem from "../../../../common/bem";
-import { Cocktail } from "../../../../types/cocktails";
+import {
+  COLUMN_WIDTH,
+  COLUMNS_COUNT,
+  getItemFromGridIndices,
+  ROW_HEIGHT,
+} from "./gridCommons";
+import CocktailItem from "./CocktailItem/CocktailItem";
 
-const COLUMNS_COUNT = 3;
-const ROW_HEIGHT = 100;
-const COLUMN_WIDTH = 200;
+function useCocktailsList() {
+  const allCocktails = useAppSelector(selectAllCocktails);
+  const filteredCocktails = useAppSelector(selectFilteredCocktails);
 
-const getItemFromGridIndices = (
-  allCocktails: Cocktail[],
-  columnIndex: number,
-  rowIndex: number
-): Cocktail => allCocktails[rowIndex * COLUMNS_COUNT + columnIndex];
-
-const itemClassNames = bem("cocktail-item");
-
-type CocktailItemProps = {
-  columnIndex: number;
-  rowIndex: number;
-  style: CSSProperties;
-  data: { allCocktails: Cocktail[] };
-};
-
-function CocktailItem({
-  columnIndex,
-  rowIndex,
-  style,
-  data,
-}: CocktailItemProps) {
-  const { allCocktails } = data;
-  const cocktail = useMemo(
-    () => getItemFromGridIndices(allCocktails, columnIndex, rowIndex),
-    [allCocktails, columnIndex, rowIndex]
-  );
-
-  return (
-    <div
-      className={itemClassNames({
-        empty: !cocktail,
-      })}
-      style={style}
-    >
-      <h3 className={itemClassNames("title")}>{cocktail?.name ?? "NOPE"}</h3>
-    </div>
+  return useMemo(
+    () => (filteredCocktails.length ? filteredCocktails : allCocktails),
+    [filteredCocktails, allCocktails]
   );
 }
 
@@ -63,17 +37,24 @@ type VirtualCocktailsListProps = {
 export default function VirtualCocktailsList({
   className,
 }: VirtualCocktailsListProps) {
-  const allCocktails = useAppSelector(selectAllCocktails);
-  const hasError = useAppSelector(selectHasCocktailsFetchError);
+  const potentialErrorMessage = useAppSelector(
+    selectCocktailsFetchErrorMessage
+  );
+
+  const cocktailsList = useCocktailsList();
 
   const rowsCount = useMemo(
-    () => Math.ceil(allCocktails.length / COLUMNS_COUNT),
-    [allCocktails]
+    () => Math.ceil(cocktailsList.length / COLUMNS_COUNT),
+    [cocktailsList]
   );
+
+  console.log(`%crows - ${rowsCount}`, `font-size: 35px; color: dodgerblue;`);
 
   return (
     <div className={virtualCocktailsListClassNames.mix(className)}>
-      {allCocktails.length ? (
+      {potentialErrorMessage ? (
+        <ErrorState />
+      ) : cocktailsList.length ? (
         <FixedSizeGrid
           columnCount={COLUMNS_COUNT}
           columnWidth={COLUMN_WIDTH}
@@ -82,14 +63,12 @@ export default function VirtualCocktailsList({
           width={window.innerWidth * 0.9}
           height={window.innerHeight * 0.5}
           itemKey={({ rowIndex, columnIndex }) =>
-            getItemFromGridIndices(allCocktails, columnIndex, rowIndex).id
+            getItemFromGridIndices(cocktailsList, columnIndex, rowIndex)?.id
           }
-          itemData={{ allCocktails }}
+          itemData={{ cocktailsList }}
         >
           {CocktailItem}
         </FixedSizeGrid>
-      ) : hasError ? (
-        <ErrorState />
       ) : (
         <CocktailLoadingSpinner />
       )}

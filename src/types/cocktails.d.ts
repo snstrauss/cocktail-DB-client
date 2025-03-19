@@ -75,7 +75,7 @@ export type RawCocktailData = {
 
 export type RawCocktailsResponse = {
   drinks: RawCocktailData[];
-}[];
+};
 
 export type Cocktail = {
   id: string;

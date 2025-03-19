@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import cocktailsSlice from "./cocktails/cocktails.reducer";
+import cocktailsSlice from "./cocktails/cocktails.slice";
 import { useSelector } from "react-redux";
 
 export const store = configureStore({

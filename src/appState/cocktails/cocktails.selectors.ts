@@ -8,7 +8,12 @@ export const selectAllCocktails = createSelector(
   (cocktailsState) => cocktailsState.allCocktails
 );
 
-export const selectHasCocktailsFetchError = createSelector(
+export const selectFilteredCocktails = createSelector(
   [selectCocktails],
-  (cocktailsState) => cocktailsState.hasError
+  (cocktailsState) => cocktailsState.filteredCocktails
+);
+
+export const selectCocktailsFetchErrorMessage = createSelector(
+  [selectCocktails],
+  (cocktailsState) => cocktailsState.errorMessage
 );
