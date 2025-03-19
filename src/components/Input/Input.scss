@@ -1,0 +1,34 @@
+@use "../../common/mixins.scss" as *;
+
+.input {
+  border-radius: 0.5em;
+  border: 1px solid #333;
+  width: 100%;
+  background-color: white;
+  overflow: hidden;
+
+  @include flex($direction: row, $align: center, $justify: stretch);
+
+  &__input-field {
+    flex: 10;
+    font-size: 1.5em;
+    padding: 0.5em 1em;
+  }
+
+  &__icon {
+    padding-inline: 0.5em;
+
+    flex: 1;
+
+    display: grid;
+    place-items: center;
+
+    svg {
+      width: 2em;
+
+      path {
+        fill: #333;
+      }
+    }
+  }
+}

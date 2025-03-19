@@ -1,0 +1,36 @@
+@use "../../common/mixins.scss" as *;
+
+.button {
+  --content-size: 1.5em;
+  --content-color: white;
+  --disabled-content-color: #ddd;
+
+  background-color: #444;
+  color: var(--content-color);
+  border-radius: 0.3em;
+  font-size: var(--content-size);
+  font-weight: 700;
+  padding: 0.5em 1em;
+
+  @include flex($direction: row, $justify: center, $gap: 1em);
+
+  svg {
+    width: var(--content-size);
+
+    path {
+      fill: var(--content-color);
+    }
+  }
+
+  &:disabled {
+    background-color: #999;
+    color: var(--disabled-content-color);
+    pointer-events: none;
+
+    svg {
+      path {
+        fill: var(--disabled-content-color);
+      }
+    }
+  }
+}
