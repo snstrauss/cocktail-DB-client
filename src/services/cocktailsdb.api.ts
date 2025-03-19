@@ -22,3 +22,9 @@ export function searchCocktails(
 ): Promise<RawCocktailsResponse> {
   return getJson(`${BASE_URL}/search.php?s=${searchValue}`);
 }
+
+export function fetchSingleCocktail(
+  cocktailId: string
+): Promise<RawCocktailsResponse> {
+  return getJson(`${BASE_URL}/lookup.php?i=${cocktailId}`);
+}

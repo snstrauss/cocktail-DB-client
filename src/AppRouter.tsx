@@ -9,7 +9,7 @@ export default function AppRouter() {
       <Routes>
         <Route element={<CommonPageLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/recipe/:drink" element={<CocktailRecipe />} />
+          <Route path="/recipe/:cocktailId" element={<CocktailRecipe />} />
         </Route>
       </Routes>
     </BrowserRouter>

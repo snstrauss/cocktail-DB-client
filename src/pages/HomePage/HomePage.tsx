@@ -5,7 +5,6 @@ import Button from "../../components/Button/Button";
 import WriteIcon from "../../img/file-pen-regular.svg?react";
 import bem from "../../common/bem";
 import SearchInput from "./components/SearchInput/SearchInput";
-
 const homeClassNames = bem("home-page");
 
 export default function HomePage() {

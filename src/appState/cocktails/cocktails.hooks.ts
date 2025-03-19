@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   fetchAllCocktails,
+  fetchSingleCocktail,
   searchCocktails,
 } from "../../services/cocktailsdb.api";
 import { Cocktail, RawCocktailData } from "../../types/cocktails";
@@ -11,6 +12,11 @@ import {
   setCocktailsFetchErrorMessage,
 } from "./cocktails.slice";
 import useDebouncedCallback from "../../hooks/useDebouncedCallback";
+import { useAppSelector } from "../store";
+import {
+  selectAllCocktails,
+  selectFilteredCocktails,
+} from "./cocktails.selectors";
 
 const toFormattedCocktail = ({
   idDrink,
@@ -94,4 +100,32 @@ export function useDebouncedCocktailsSearch() {
       }
     }
   });
+}
+
+export function useCocktailById(cocktailId: string) {
+  const dispatch = useDispatch();
+  const [cocktail, setCocktail] = useState<Cocktail | null>(null);
+
+  useEffect(() => {
+    fetchSingleCocktail(cocktailId).then((response) => {
+      console.log(response);
+      if (!response.drinks) {
+        dispatch(setCocktailsFetchErrorMessage("Cocktail not found"));
+      } else {
+        setCocktail(response.drinks.map(toFormattedCocktail)[0]);
+      }
+    });
+  }, [cocktailId, dispatch]);
+
+  return cocktail;
+}
+
+export function useCocktailsList() {
+  const allCocktails = useAppSelector(selectAllCocktails);
+  const filteredCocktails = useAppSelector(selectFilteredCocktails);
+
+  return useMemo(
+    () => (filteredCocktails.length ? filteredCocktails : allCocktails),
+    [filteredCocktails, allCocktails]
+  );
 }

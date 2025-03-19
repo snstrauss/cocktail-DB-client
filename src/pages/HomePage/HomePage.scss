@@ -12,4 +12,8 @@
   &__cocktails-list {
     flex: 1;
   }
+
+  @include on-mobile {
+    background-color: dodgerblue;
+  }
 }

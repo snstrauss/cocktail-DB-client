@@ -1,0 +1,14 @@
+.cocktail-item {
+  border: 3px solid green;
+
+  &__name {
+    border: 1px solid red;
+  }
+
+  &__thumbnail {
+    border: 1px solid blue;
+
+    width: 100%;
+    height: 100%;
+  }
+}

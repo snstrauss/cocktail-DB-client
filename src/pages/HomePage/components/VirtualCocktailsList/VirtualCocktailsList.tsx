@@ -17,16 +17,7 @@ import {
   ROW_HEIGHT,
 } from "./gridCommons";
 import CocktailItem from "./CocktailItem/CocktailItem";
-
-function useCocktailsList() {
-  const allCocktails = useAppSelector(selectAllCocktails);
-  const filteredCocktails = useAppSelector(selectFilteredCocktails);
-
-  return useMemo(
-    () => (filteredCocktails.length ? filteredCocktails : allCocktails),
-    [filteredCocktails, allCocktails]
-  );
-}
+import { useCocktailsList } from "../../../../appState/cocktails/cocktails.hooks";
 
 const virtualCocktailsListClassNames = bem("virtual-cocktails-list");
 
