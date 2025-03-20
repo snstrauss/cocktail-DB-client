@@ -2,10 +2,10 @@
 
 .button {
   --content-size: 1.5em;
-  --content-color: white;
+  --content-color: var(--color-secondary);
   --disabled-content-color: #ddd;
 
-  background-color: #444;
+  background-color: var(--color-primary);
   color: var(--content-color);
   border-radius: 0.3em;
   font-size: var(--content-size);
@@ -20,6 +20,10 @@
     path {
       fill: var(--content-color);
     }
+  }
+
+  &--large {
+    --content-size: 2em;
   }
 
   &:disabled {

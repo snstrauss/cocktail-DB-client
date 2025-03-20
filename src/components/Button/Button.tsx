@@ -7,6 +7,7 @@ type ButtonProps = {
   onClick?: () => void;
   disabled?: boolean;
   className?: string;
+  large?: boolean;
 };
 
 const buttonClassNames = bem("button");
@@ -16,10 +17,11 @@ export default function Button({
   onClick,
   disabled,
   className,
+  large,
 }: ButtonProps) {
   return (
     <button
-      className={buttonClassNames.mix(className)}
+      className={buttonClassNames({ large }).mix(className)}
       onClick={onClick}
       disabled={disabled}
     >

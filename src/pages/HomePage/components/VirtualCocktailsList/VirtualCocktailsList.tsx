@@ -39,8 +39,6 @@ export default function VirtualCocktailsList({
     [cocktailsList]
   );
 
-  console.log(`%crows - ${rowsCount}`, `font-size: 35px; color: dodgerblue;`);
-
   return (
     <div className={virtualCocktailsListClassNames.mix(className)}>
       {potentialErrorMessage ? (
@@ -51,8 +49,8 @@ export default function VirtualCocktailsList({
           columnWidth={COLUMN_WIDTH}
           rowCount={rowsCount}
           rowHeight={ROW_HEIGHT}
-          width={window.innerWidth * 0.9}
-          height={window.innerHeight * 0.5}
+          width={COLUMN_WIDTH * COLUMNS_COUNT}
+          height={ROW_HEIGHT * 3.2}
           itemKey={({ rowIndex, columnIndex }) =>
             getItemFromGridIndices(cocktailsList, columnIndex, rowIndex)?.id
           }
