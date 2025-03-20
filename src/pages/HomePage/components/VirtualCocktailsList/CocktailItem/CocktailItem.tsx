@@ -45,7 +45,7 @@ export default function CocktailItem({
       style={style}
     >
       <img src={thumbnail} alt={name} className={itemClassNames("thumbnail")} />
-      <h3 className={itemClassNames("title")}>{cocktail.name}</h3>
+      <h3 className={itemClassNames("name")}>{name}</h3>
     </div>
   );
 }

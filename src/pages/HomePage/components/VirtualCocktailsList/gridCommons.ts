@@ -1,8 +1,8 @@
 import { Cocktail } from "../../../../types/cocktails";
 
 export const COLUMNS_COUNT = 2
-export const ROW_HEIGHT = 100;
-export const COLUMN_WIDTH = 200;
+export const ROW_HEIGHT = 200;
+export const COLUMN_WIDTH = 180;
 
 export const getItemFromGridIndices = (
   allCocktails: Cocktail[],
