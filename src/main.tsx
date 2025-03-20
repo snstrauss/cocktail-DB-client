@@ -1,4 +1,5 @@
 import "./reset.css";
+import "./common/colors.scss";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./AppRouter.tsx";

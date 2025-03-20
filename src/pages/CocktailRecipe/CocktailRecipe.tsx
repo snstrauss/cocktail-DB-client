@@ -7,6 +7,7 @@ import { selectCocktailsFetchErrorMessage } from "../../appState/cocktails/cockt
 import { useAppSelector } from "../../appState/store";
 import ErrorState from "../../components/ErrorState/ErrorState";
 import { Cocktail } from "../../types/cocktails";
+import Title from "../../components/Title/Title";
 
 function useFormattedIngredients(rawIngredients: RawCocktailIngrediantsProps) {
   return useMemo(
@@ -36,17 +37,19 @@ type CocktailRecipeProps = {
 };
 
 function CocktailRecipe({ cocktail }: CocktailRecipeProps) {
-  const formattedIngredients = useFormattedIngredients(
-    cocktail?.rawIngredients
-  );
+  const { name, thumbnail, rawIngredients, instructions, extraDetails } =
+    cocktail;
+  const { glass } = extraDetails;
+
+  const formattedIngredients = useFormattedIngredients(rawIngredients);
 
   return (
     <>
-      <h1 className={cocktailRecipeClassName("name")}>{cocktail?.name}</h1>
+      <Title>{name}</Title>
       <img
-        src={cocktail.thumbnail}
+        src={thumbnail}
         className={cocktailRecipeClassName("thumbnail")}
-        alt={cocktail.name}
+        alt={name}
       />
       <div className={cocktailRecipeClassName("instructions")}>
         <section>
@@ -65,7 +68,8 @@ function CocktailRecipe({ cocktail }: CocktailRecipeProps) {
         </section>
         <section>
           <h2>Instructions</h2>
-          <p>{cocktail.instructions["en"]}</p>
+          <p>Glass: {glass}</p>
+          <p>{instructions["en"]}</p>
         </section>
       </div>
     </>

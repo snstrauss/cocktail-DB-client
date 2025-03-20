@@ -16,8 +16,8 @@ body {
   font-family: Arial, sans-serif;
   font-size: 100%;
   line-height: 1.5;
-  background-color: #fff;
-  color: #333;
+  background-color: var(--color-bg-dark);
+  color: var(--color-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;

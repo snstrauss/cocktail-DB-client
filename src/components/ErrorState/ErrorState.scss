@@ -5,11 +5,12 @@
 
   h1 {
     text-align: center;
+    color: var(--color-error);
   }
 
   svg {
     path {
-      fill: #333;
+      fill: var(--color-error);
     }
   }
 }

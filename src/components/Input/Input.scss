@@ -2,9 +2,10 @@
 
 .input {
   border-radius: 0.5em;
-  border: 1px solid #333;
+  border: 1px solid var(--color-primary);
   width: 100%;
-  background-color: white;
+  background-color: var(--color-bg-light);
+  color: var(--color-primary);
   overflow: hidden;
 
   @include flex($direction: row, $align: center, $justify: stretch);
@@ -27,7 +28,7 @@
       width: 2em;
 
       path {
-        fill: #333;
+        fill: var(--color-primary);
       }
     }
   }

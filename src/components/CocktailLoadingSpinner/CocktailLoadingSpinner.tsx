@@ -1,14 +1,13 @@
 import "./CocktailLoadingSpinner.scss";
 import CocktailIcon from "../../img/martini-glass-citrus-solid.svg?react";
+import bem from "../../common/bem";
 
-const size = 100;
+const cocktailLoadingSpinnerClassNames = bem("cocktail-loading-spinner");
 
 export default function CocktailLoadingSpinner() {
   return (
-    <CocktailIcon
-      className="cocktail-loading-spinner"
-      width={size}
-      height={size}
-    />
+    <div className={cocktailLoadingSpinnerClassNames()}>
+      <CocktailIcon />
+    </div>
   );
 }
