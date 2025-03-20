@@ -5,6 +5,7 @@ import Button from "../../components/Button/Button";
 import WriteIcon from "../../img/file-pen-regular.svg?react";
 import bem from "../../common/bem";
 import SearchInput from "./components/SearchInput/SearchInput";
+import Title from "../../components/Title/Title";
 const homeClassNames = bem("home-page");
 
 export default function HomePage() {
@@ -12,10 +13,10 @@ export default function HomePage() {
 
   return (
     <div className={homeClassNames()}>
-      <h1 className={homeClassNames("title")}>All Cocktails List</h1>
+      <Title>CocktailsDB</Title>
       <SearchInput />
       <VirtualCocktailsList className={homeClassNames("cocktails-list")} />
-      <Button className={homeClassNames("add-button")}>
+      <Button large>
         Add <WriteIcon />
       </Button>
     </div>

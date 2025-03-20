@@ -1,19 +1,9 @@
 @use "../../common/mixins.scss" as *;
 
 .home-page {
-  background-color: firebrick;
-
   @include flex($align: stretch, $justify: flex-start, $gap: 1em);
-
-  &__title {
-    text-align: center;
-  }
 
   &__cocktails-list {
     flex: 1;
-  }
-
-  @include on-mobile {
-    background-color: dodgerblue;
   }
 }
