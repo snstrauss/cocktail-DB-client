@@ -1,0 +1,9 @@
+.home-button {
+  --size: 3em;
+  width: var(--size);
+  height: var(--size);
+
+  path {
+    fill: var(--color-accent);
+  }
+}

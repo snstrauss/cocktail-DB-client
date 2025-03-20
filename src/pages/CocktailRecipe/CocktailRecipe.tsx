@@ -8,6 +8,7 @@ import { useAppSelector } from "../../appState/store";
 import ErrorState from "../../components/ErrorState/ErrorState";
 import { Cocktail } from "../../types/cocktails";
 import Title from "../../components/Title/Title";
+import HomeButton from "../../components/HomeButton/HomeButton";
 
 function useFormattedIngredients(rawIngredients: RawCocktailIngrediantsProps) {
   return useMemo(
@@ -45,7 +46,10 @@ function CocktailRecipe({ cocktail }: CocktailRecipeProps) {
 
   return (
     <>
-      <Title>{name}</Title>
+      <header>
+        <Title>{name}</Title>
+        <HomeButton />
+      </header>
       <img
         src={thumbnail}
         className={cocktailRecipeClassName("thumbnail")}
