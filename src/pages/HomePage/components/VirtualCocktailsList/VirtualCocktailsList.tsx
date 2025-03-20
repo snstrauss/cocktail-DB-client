@@ -2,11 +2,7 @@ import "./VirtualCocktailsList.scss";
 import { useMemo } from "react";
 import { FixedSizeGrid } from "react-window";
 import { useAppSelector } from "../../../../appState/store";
-import {
-  selectAllCocktails,
-  selectCocktailsFetchErrorMessage,
-  selectFilteredCocktails,
-} from "../../../../appState/cocktails/cocktails.selectors";
+import { selectCocktailsFetchErrorMessage } from "../../../../appState/cocktails/cocktails.selectors";
 import CocktailLoadingSpinner from "../../../../components/CocktailLoadingSpinner/CocktailLoadingSpinner";
 import ErrorState from "../../../../components/ErrorState/ErrorState";
 import bem from "../../../../common/bem";
@@ -15,6 +11,7 @@ import {
   COLUMNS_COUNT,
   getItemFromGridIndices,
   ROW_HEIGHT,
+  useGridScrollPosition,
 } from "./gridCommons";
 import CocktailItem from "./CocktailItem/CocktailItem";
 import { useCocktailsList } from "../../../../appState/cocktails/cocktails.hooks";
@@ -39,8 +36,15 @@ export default function VirtualCocktailsList({
     [cocktailsList]
   );
 
+  const { ref, onScroll, isAtTop, isAtBottom } = useGridScrollPosition();
+
   return (
-    <div className={virtualCocktailsListClassNames.mix(className)}>
+    <div
+      className={virtualCocktailsListClassNames({
+        "top-fade": !isAtTop,
+        "bottom-fade": !isAtBottom,
+      }).mix(className)}
+    >
       {potentialErrorMessage ? (
         <ErrorState />
       ) : cocktailsList.length ? (
@@ -55,6 +59,8 @@ export default function VirtualCocktailsList({
             getItemFromGridIndices(cocktailsList, columnIndex, rowIndex)?.id
           }
           itemData={{ cocktailsList }}
+          outerRef={ref}
+          onScroll={onScroll}
         >
           {CocktailItem}
         </FixedSizeGrid>

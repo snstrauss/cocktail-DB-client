@@ -1,5 +1,44 @@
 @use "../../../../common/mixins.scss" as *;
 
 .virtual-cocktails-list {
+  position: relative;
+
   @include flex($justify: flex-start);
+  @mixin fade($direction: top) {
+    content: "";
+    background: linear-gradient(
+      to $direction,
+      transparent,
+      var(--color-bg-dark)
+    );
+    position: absolute;
+    height: 4em;
+    inset-inline: 0;
+    z-index: 1;
+
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  &:before {
+    @include fade();
+    top: 0;
+  }
+
+  &:after {
+    @include fade(bottom);
+    bottom: 0;
+  }
+
+  &--top-fade {
+    &:before {
+      opacity: 1;
+    }
+  }
+
+  &--bottom-fade {
+    &:after {
+      opacity: 1;
+    }
+  }
 }
