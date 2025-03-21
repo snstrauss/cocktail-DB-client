@@ -73,7 +73,7 @@ function CocktailRecipe({ cocktail }: CocktailRecipeProps) {
         <section>
           <h2>Instructions</h2>
           <p>Glass: {glass}</p>
-          <p>{instructions["en"]}</p>
+          <p>{instructions}</p>
         </section>
       </div>
     </>

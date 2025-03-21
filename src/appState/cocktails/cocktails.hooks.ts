@@ -17,17 +17,13 @@ import {
   selectAllCocktails,
   selectFilteredCocktails,
 } from "./cocktails.selectors";
+import { getCocktailsFromLocalStorage } from "../../services/cocktailsLocalStorage";
 
-const toFormattedCocktail = ({
+export const toFormattedCocktail = ({
   idDrink,
   strDrink,
   strDrinkThumb,
-  strImageSource,
   strInstructions,
-  strInstructionsES,
-  strInstructionsDE,
-  strInstructionsFR,
-  strInstructionsIT,
   strCategory,
   strAlcoholic,
   strGlass,
@@ -37,22 +33,12 @@ const toFormattedCocktail = ({
     id: idDrink,
     name: strDrink,
     thumbnail: strDrinkThumb,
-    image: strImageSource,
-
-    instructions: {
-      en: strInstructions,
-      es: strInstructionsES,
-      de: strInstructionsDE,
-      fr: strInstructionsFR,
-      it: strInstructionsIT,
-    },
-
+    instructions: strInstructions,
     extraDetails: {
       category: strCategory,
       alcoholic: strAlcoholic,
       glass: strGlass,
     },
-
     rawIngredients: restOfProps,
   };
 };
@@ -129,8 +115,18 @@ export function useCocktailsList() {
   const allCocktails = useAppSelector(selectAllCocktails);
   const filteredCocktails = useAppSelector(selectFilteredCocktails);
 
+  const userCreatedCocktails = useMemo(
+    () => getCocktailsFromLocalStorage(),
+    []
+  );
+
   return useMemo(
-    () => (filteredCocktails.length ? filteredCocktails : allCocktails),
-    [filteredCocktails, allCocktails]
+    () =>
+      filteredCocktails.length
+        ? filteredCocktails
+        : allCocktails.length
+        ? [...userCreatedCocktails, ...allCocktails]
+        : [],
+    [filteredCocktails, allCocktails, userCreatedCocktails]
   );
 }

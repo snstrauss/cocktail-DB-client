@@ -15,6 +15,7 @@ import { saveCocktailToLocalStorage } from "../../services/cocktailsLocalStorage
 import { useNavigate } from "react-router";
 import SuccessMessage from "./components/SuccessMessage/SuccessMessage";
 import HomeButton from "../../components/HomeButton/HomeButton";
+import { toFormattedCocktail } from "../../appState/cocktails/cocktails.hooks";
 
 const addRecipeClassNames = bem("add-recipe");
 
@@ -40,13 +41,18 @@ export default function AddRecipe() {
     strInstructions,
     ...ingredients
   }: RecipeFormData) {
-    saveCocktailToLocalStorage({
-      idDrink: crypto.randomUUID(),
-      strDrink,
-      strInstructions,
-      strDrinkThumb: imageUrl.current ?? getRandomCocktailThumbnail(),
-      ...ingredients,
-    });
+    saveCocktailToLocalStorage(
+      toFormattedCocktail({
+        idDrink: crypto.randomUUID().toString(),
+        strDrink,
+        strInstructions,
+        strDrinkThumb: imageUrl.current ?? getRandomCocktailThumbnail(),
+        strCategory: "Cocktail",
+        strAlcoholic: "Alcoholic",
+        strGlass: "Cocktail glass",
+        ...ingredients,
+      })
+    );
 
     successMessageRef.current?.showModal();
     setTimeout(() => {

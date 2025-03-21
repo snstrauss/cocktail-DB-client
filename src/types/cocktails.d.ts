@@ -51,7 +51,7 @@ export type Glass =
 
 type Alcoholic = "Alcoholic" | "Non alcoholic" | "Optional alcohol";
 
-type RawCocktailIngrediantsProps = {
+type RawCocktailIngredientsProps = {
   [key: `strIngredient${number}`]: PossibleString;
   [key: `strMeasure${number}`]: PossibleString;
 };
@@ -59,22 +59,12 @@ type RawCocktailIngrediantsProps = {
 export type RawCocktailData = {
   idDrink: string;
   strDrink: string;
+  strDrinkThumb: string;
+  strInstructions: PossibleString;
   strCategory: Category;
   strAlcoholic: Alcoholic;
   strGlass: Glass;
-  strInstructions: PossibleString;
-  strInstructionsES: PossibleString;
-  strInstructionsDE: PossibleString;
-  strInstructionsFR: PossibleString;
-  strInstructionsIT: PossibleString;
-  strInstructionsZH_HANS: PossibleString;
-  strInstructionsZH_HANT: PossibleString;
-  strDrinkThumb: string;
-  strImageSource: PossibleString;
-  strImageAttribution: PossibleString;
-  strCreativeCommonsConfirmed: string;
-  dateModified: PossibleString;
-} & RawCocktailIngrediantsProps;
+} & RawCocktailIngredientsProps;
 
 export type RawCocktailsResponse = {
   drinks: RawCocktailData[];
@@ -84,21 +74,11 @@ export type Cocktail = {
   id: string;
   name: string;
   thumbnail: string;
-  image: PossibleString;
-
-  instructions: {
-    en: PossibleString;
-    es: PossibleString;
-    de: PossibleString;
-    fr: PossibleString;
-    it: PossibleString;
-  };
-
+  instructions: PossibleString;
   extraDetails: {
     category: Category;
     alcoholic: Alcoholic;
     glass: Glass;
   };
-
   rawIngredients: RawCocktailIngrediantsProps;
 };
