@@ -1,0 +1,7 @@
+@use "../../../../components/Input/Input.scss" as inputStyles;
+
+.select-glass {
+  @extend .common-input-styles;
+  font-size: 1.5em;
+  padding: var(--padding);
+}

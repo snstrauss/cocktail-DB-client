@@ -16,12 +16,15 @@ import { useNavigate } from "react-router";
 import SuccessMessage from "./components/SuccessMessage/SuccessMessage";
 import HomeButton from "../../components/HomeButton/HomeButton";
 import { toFormattedCocktail } from "../../appState/cocktails/cocktails.hooks";
+import SelectGlass from "./components/SelectGlass/SelectGlass";
+import { ALCOHOLIC, CATEGORY, Glass } from "../../types/cocktails.enums";
 
 const addRecipeClassNames = bem("add-recipe");
 
 type RecipeFormData = {
   strDrink: string;
   strInstructions: string;
+  strGlass: Glass;
   [key: `strIngredient${number}`]: string;
   [key: `strMeasure${number}`]: string;
 };
@@ -39,6 +42,7 @@ export default function AddRecipe() {
   function addCocktailToStorage({
     strDrink,
     strInstructions,
+    strGlass,
     ...ingredients
   }: RecipeFormData) {
     saveCocktailToLocalStorage({
@@ -47,14 +51,13 @@ export default function AddRecipe() {
         strDrink,
         strInstructions,
         strDrinkThumb: imageUrl.current ?? getRandomCocktailThumbnail(),
-        strCategory: "Cocktail",
-        strAlcoholic: "Alcoholic",
-        strGlass: "Cocktail glass",
+        strCategory: CATEGORY.HOMEMADE,
+        strAlcoholic: ALCOHOLIC.OPTIONAL,
+        strGlass: strGlass,
         ...ingredients,
       }),
       isUserCreated: true,
-    }
-    );
+    });
 
     successMessageRef.current?.showModal();
     setTimeout(() => {
@@ -81,6 +84,7 @@ export default function AddRecipe() {
               }
               placeholder="Cocktail Name"
             />
+            <SelectGlass />
             <AddIngredients />
             <FormField
               name="strInstructions"
