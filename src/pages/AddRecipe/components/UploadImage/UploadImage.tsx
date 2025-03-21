@@ -13,12 +13,14 @@ type UploadImageProps = {
   onImageSelect?: (imageFile: { file: File; dataUrl: string }) => void;
   maxSizeMB?: number;
   acceptedTypes?: string[];
+  className?: string;
 };
 
 export default function UploadImage({
   onImageSelect,
   maxSizeMB = MAX_SIZE_MB,
   acceptedTypes = ACCEPTED_TYPES,
+  className,
 }: UploadImageProps) {
   const [preview, setPreview] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +53,7 @@ export default function UploadImage({
   };
 
   return (
-    <div className={uploadImageClassNames()}>
+    <div className={uploadImageClassNames.mix(className)}>
       <input
         type="file"
         accept={acceptedTypes.join(",")}

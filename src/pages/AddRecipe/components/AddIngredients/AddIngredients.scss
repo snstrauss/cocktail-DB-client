@@ -1,7 +1,7 @@
 @use "../../../../common/mixins.scss" as *;
 
 .add-ingredients {
-  @include flex($gap: 1em, $align: flex-start);
+  @include flex($align: flex-start, $gap: 0.5em);
 
   &__ingredient-field {
     width: 100%;
@@ -26,7 +26,7 @@
     width: fit-content;
     color: var(--color-secondary);
 
-    @include flex($direction: row, $gap: 1em);
+    @include flex($direction: row, $gap: 0.5em);
 
     svg {
       --size: 1em;

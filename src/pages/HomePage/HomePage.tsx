@@ -20,10 +20,10 @@ export default function HomePage() {
 
   return (
     <div className={homeClassNames()}>
-      <Title>CocktailsDB</Title>
-      <SearchInput />
+      <Title className={homeClassNames("title")}>CocktailsDB</Title>
+      <SearchInput className={homeClassNames("search")} />
       <VirtualCocktailsList className={homeClassNames("cocktails-list")} />
-      <Button onClick={addNewRecipe} large>
+      <Button onClick={addNewRecipe} className={homeClassNames("add")} large>
         Add <WriteIcon />
       </Button>
     </div>

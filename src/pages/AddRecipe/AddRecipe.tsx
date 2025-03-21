@@ -68,15 +68,18 @@ export default function AddRecipe() {
 
   return (
     <div className={addRecipeClassNames()}>
-      <header>
+      <header className={addRecipeClassNames("header")}>
         <Title>New Cocktail</Title>
         <HomeButton />
       </header>
-      <UploadImage onImageSelect={getImage} />
+      <UploadImage
+        onImageSelect={getImage}
+        className={addRecipeClassNames("image")}
+      />
       <Form
         onSubmit={addCocktailToStorage}
         render={({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className={addRecipeClassNames("form")}>
             <FormField
               name="strDrink"
               validate={(value) =>

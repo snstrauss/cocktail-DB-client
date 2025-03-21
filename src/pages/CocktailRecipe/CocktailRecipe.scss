@@ -1,12 +1,31 @@
 @use "../../common/mixins.scss" as *;
 
 .cocktail-recipe {
+  @include flex($align: stretch, $justify: flex-start);
 
   header {
     @include flex($direction: row, $justify: space-between);
   }
 
-  @include flex($align: stretch, $justify: flex-start, $gap: 1em);
+  &__thumbnail {
+    width: 30em;
+    height: 30em;
+  }
+
+  &__content {
+    @include flex(
+      $direction: row,
+      $justify: center,
+      $align: flex-start,
+      $gap: 4em
+    );
+
+    @include on-mobile {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--gap);
+    }
+  }
 
   &__instructions {
     overflow-y: scroll;
@@ -17,6 +36,10 @@
       margin-bottom: 1rem;
 
       white-space: pre-wrap;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 }

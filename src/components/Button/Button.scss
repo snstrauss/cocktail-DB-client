@@ -12,7 +12,7 @@
   font-weight: 700;
   padding: 0.5em 1em;
 
-  @include flex($direction: row, $justify: center, $gap: 1em);
+  @include flex($direction: row, $justify: center);
 
   svg {
     width: var(--content-size);

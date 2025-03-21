@@ -1,9 +1,35 @@
 @use "../../common/mixins.scss" as *;
 
 .home-page {
-  @include flex($align: stretch, $justify: flex-start, $gap: 1em);
+  display: grid;
+  grid-template:
+    "title title" auto
+    "search add" auto
+    "cocktails-list cocktails-list" 1fr / 1fr auto;
+  column-gap: 3em;
+  row-gap: 4.5em;
 
   &__cocktails-list {
     flex: 1;
+  }
+
+  @include on-mobile {
+    @include flex($align: stretch, $justify: flex-start);
+  }
+
+  &__title {
+    grid-area: title;
+  }
+
+  &__search {
+    grid-area: search;
+  }
+
+  &__add {
+    grid-area: add;
+  }
+
+  &__cocktails-list {
+    grid-area: cocktails-list;
   }
 }

@@ -47,34 +47,36 @@ function CocktailRecipe({ cocktail }: CocktailRecipeProps) {
   return (
     <>
       <header>
-        <Title>{name}</Title>
-        <HomeButton />
+        <Title className={cocktailRecipeClassName("title")}>{name}</Title>
+        <HomeButton className={cocktailRecipeClassName("home")} />
       </header>
-      <img
-        src={thumbnail}
-        className={cocktailRecipeClassName("thumbnail")}
-        alt={name}
-      />
-      <div className={cocktailRecipeClassName("instructions")}>
-        <section>
-          <h2>Ingredients</h2>
-          <ul>
-            {formattedIngredients.map((ingredientEntry) => {
-              if (!ingredientEntry) return null;
+      <div className={cocktailRecipeClassName("content")}>
+        <img
+          src={thumbnail}
+          className={cocktailRecipeClassName("thumbnail")}
+          alt={name}
+        />
+        <div className={cocktailRecipeClassName("instructions")}>
+          <section>
+            <h2>Ingredients</h2>
+            <ul>
+              {formattedIngredients.map((ingredientEntry) => {
+                if (!ingredientEntry) return null;
 
-              return (
-                <li key={ingredientEntry}>
-                  <span>{ingredientEntry}</span>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-        <section>
-          <h2>Instructions</h2>
-          <p>Glass: {glass}</p>
-          <p>{instructions}</p>
-        </section>
+                return (
+                  <li key={ingredientEntry}>
+                    <span>{ingredientEntry}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+          <section>
+            <h2>Instructions</h2>
+            <p>Glass: {glass}</p>
+            <p>{instructions}</p>
+          </section>
+        </div>
       </div>
     </>
   );

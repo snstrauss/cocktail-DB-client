@@ -1,22 +1,45 @@
 @use "../../common/mixins.scss" as *;
 
 .add-recipe {
-  header {
-    @include flex(
-      $direction: row,
-      $justify: space-between,
-      $align: center
-    );
+  display: grid;
+  grid-template:
+    "header header" auto
+    "form   image " 1fr / 1fr auto;
+  column-gap: 4em;
+  row-gap: 1em;
+
+  @include on-mobile {
+    @include flex($justify: flex-start, $align: stretch);
   }
 
-  @include flex($justify: flex-start, $align: stretch, $gap: 1em);
+  &__header {
+    grid-area: header;
+    @include flex($direction: row, $justify: space-between, $align: center);
+  }
+
+  &__image {
+    grid-area: image;
+    width: 30em;
+    height: 20em;
+
+    @include on-mobile {
+      width: 100%;
+    }
+  }
 
   form {
+    grid-area: form;
+
     flex: 1;
     @include flex($justify: flex-start, $align: stretch, $gap: 1em);
 
     .button {
       margin-top: auto;
+      width: fit-content;
+
+      @include on-mobile {
+        width: 100%;
+      }
     }
   }
 }
