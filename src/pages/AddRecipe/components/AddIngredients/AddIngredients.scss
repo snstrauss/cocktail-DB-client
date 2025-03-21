@@ -1,0 +1,42 @@
+@use "../../../../common/mixins.scss" as *;
+
+.add-ingredients {
+  border: 2px solid deeppink;
+  @include flex($gap: 1em, $align: flex-start);
+
+  &__ingredient-field {
+    width: 100%;
+    @include flex($direction: row, $gap: 1em);
+
+    .field {
+      font-size: 0.7em;
+    }
+
+    &__measure {
+      flex: 1;
+      @extend .field;
+    }
+
+    &__ingredient {
+      flex: 3;
+      @extend .field;
+    }
+  }
+
+  &__add {
+    width: fit-content;
+    color: var(--color-secondary);
+
+    @include flex($direction: row, $gap: 1em);
+
+    svg {
+      --size: 1em;
+      width: var(--size);
+      height: var(--size);
+
+      path {
+        fill: var(--color-secondary);
+      }
+    }
+  }
+}

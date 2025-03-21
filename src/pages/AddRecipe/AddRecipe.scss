@@ -1,0 +1,15 @@
+@use "../../common/mixins.scss" as *;
+
+.add-recipe {
+  @include flex($justify: flex-start, $align: stretch, $gap: 1em);
+
+  form {
+    border: 2px solid lime;
+    flex: 1;
+    @include flex($justify: flex-start, $align: stretch, $gap: 1em);
+
+    .button {
+      margin-top: auto;
+    }
+  }
+}

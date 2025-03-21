@@ -1,14 +1,11 @@
 import "./Button.scss";
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import bem from "../../common/bem";
 
 type ButtonProps = {
   children: ReactNode;
-  onClick?: () => void;
-  disabled?: boolean;
-  className?: string;
   large?: boolean;
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const buttonClassNames = bem("button");
 
@@ -17,6 +14,7 @@ export default function Button({
   onClick,
   disabled,
   className,
+  type,
   large,
 }: ButtonProps) {
   return (
@@ -24,6 +22,7 @@ export default function Button({
       className={buttonClassNames({ large }).mix(className)}
       onClick={onClick}
       disabled={disabled}
+      type={type}
     >
       {children}
     </button>

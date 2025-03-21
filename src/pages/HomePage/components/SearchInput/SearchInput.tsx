@@ -1,6 +1,6 @@
 import "./SearchInput.scss";
 import bem from "../../../../common/bem";
-import Input from "../../../../components/Input/Input";
+import { Input } from "../../../../components/Input/Input";
 import SearchIcon from "../../../../img/magnifying-glass-solid.svg?react";
 import { useDebouncedCocktailsSearch } from "../../../../appState/cocktails/cocktails.hooks";
 
