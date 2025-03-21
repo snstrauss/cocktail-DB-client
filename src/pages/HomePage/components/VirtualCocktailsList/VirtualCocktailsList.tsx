@@ -8,10 +8,10 @@ import ErrorState from "../../../../components/ErrorState/ErrorState";
 import bem from "../../../../common/bem";
 import {
   COLUMN_WIDTH,
-  COLUMNS_COUNT,
   getItemFromGridIndices,
   ROW_HEIGHT,
   useGridScrollPosition,
+  useResponsiveColumnsCount,
 } from "./gridCommons";
 import CocktailItem from "./CocktailItem/CocktailItem";
 import { useCocktailsList } from "../../../../appState/cocktails/cocktails.hooks";
@@ -29,11 +29,13 @@ export default function VirtualCocktailsList({
     selectCocktailsFetchErrorMessage
   );
 
+  const columnsCount = useResponsiveColumnsCount();
+
   const cocktailsList = useCocktailsList();
 
   const rowsCount = useMemo(
-    () => Math.ceil(cocktailsList.length / COLUMNS_COUNT),
-    [cocktailsList]
+    () => Math.ceil(cocktailsList.length / columnsCount),
+    [cocktailsList, columnsCount]
   );
 
   const { ref, onScroll, isAtTop, isAtBottom } = useGridScrollPosition();
@@ -49,18 +51,24 @@ export default function VirtualCocktailsList({
         <ErrorState />
       ) : cocktailsList.length ? (
         <FixedSizeGrid
-          columnCount={COLUMNS_COUNT}
+          columnCount={columnsCount}
           columnWidth={COLUMN_WIDTH}
           rowCount={rowsCount}
           rowHeight={ROW_HEIGHT}
-          width={COLUMN_WIDTH * COLUMNS_COUNT}
+          width={COLUMN_WIDTH * columnsCount}
           height={ROW_HEIGHT * 3.2}
-          itemKey={({ rowIndex, columnIndex }) =>
-            getItemFromGridIndices(cocktailsList, columnIndex, rowIndex)?.id
+          itemKey={({ rowIndex: row, columnIndex: column }) =>
+            getItemFromGridIndices({
+              cocktailsList,
+              columnsCount,
+              column,
+              row,
+            })?.id
           }
           itemData={{ cocktailsList }}
           outerRef={ref}
           onScroll={onScroll}
+          className={virtualCocktailsListClassNames("grid")}
         >
           {CocktailItem}
         </FixedSizeGrid>

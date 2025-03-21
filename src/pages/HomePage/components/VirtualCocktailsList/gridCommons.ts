@@ -1,15 +1,28 @@
 import { useRef, useState } from "react";
 import { Cocktail } from "../../../../types/cocktails";
+import useResponsiveDetection from "../../../../hooks/useResponsiveDetection";
 
-export const COLUMNS_COUNT = 2;
+export function useResponsiveColumnsCount() {
+  const { isMobile } = useResponsiveDetection();
+  return isMobile ? 2 : 7;
+}
+
 export const ROW_HEIGHT = 200;
 export const COLUMN_WIDTH = 180;
 
-export const getItemFromGridIndices = (
-  allCocktails: Cocktail[],
-  columnIndex: number,
-  rowIndex: number
-): Cocktail => allCocktails[rowIndex * COLUMNS_COUNT + columnIndex];
+type getItemParams = {
+  cocktailsList: Cocktail[];
+  columnsCount: number;
+  column: number;
+  row: number;
+};
+
+export const getItemFromGridIndices = ({
+  cocktailsList,
+  columnsCount,
+  column,
+  row,
+}: getItemParams): Cocktail => cocktailsList[row * columnsCount + column];
 
 export function useGridScrollPosition() {
   const ref = useRef<HTMLDivElement>(null);

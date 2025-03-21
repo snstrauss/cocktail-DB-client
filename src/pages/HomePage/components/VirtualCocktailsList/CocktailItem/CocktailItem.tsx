@@ -1,7 +1,7 @@
 import { CSSProperties, useMemo } from "react";
 import bem from "../../../../../common/bem";
 import "./CocktailItem.scss";
-import { getItemFromGridIndices } from "../gridCommons";
+import { getItemFromGridIndices, useResponsiveColumnsCount } from "../gridCommons";
 import { Cocktail } from "../../../../../types/cocktails";
 import { useNavigate } from "react-router";
 
@@ -22,10 +22,17 @@ export default function CocktailItem({
 }: CocktailItemProps) {
   const navigate = useNavigate();
 
+  const columnsCount = useResponsiveColumnsCount();
+    
   const { cocktailsList } = data;
   const cocktail = useMemo(
-    () => getItemFromGridIndices(cocktailsList, columnIndex, rowIndex),
-    [cocktailsList, columnIndex, rowIndex]
+    () => getItemFromGridIndices({
+      cocktailsList,
+      columnsCount,
+      column: columnIndex,
+      row: rowIndex,
+    }),
+    [cocktailsList, columnIndex, rowIndex, columnsCount]
   );
 
   if (!cocktail) {
