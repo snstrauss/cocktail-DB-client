@@ -36,11 +36,11 @@ npm run dev
 
 ## Tech Stack
 
-- React
-- TypeScript
-- SCSS
-- Vite
-- Redux
-- React Router
-- React Window
-- React Final Form
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [SCSS](https://sass-lang.com/)
+- [Vite](https://vitejs.dev/)
+- [Redux](https://redux.js.org/)
+- [React Router](https://reactrouter.com/)
+- [React Window](https://react-window.vercel.app/)
+- [React Final Form](https://final-form.org/react)
