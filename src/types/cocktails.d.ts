@@ -31,6 +31,6 @@ export type Cocktail = {
     alcoholic: Alcoholic;
     glass: Glass;
   };
-  rawIngredients: RawCocktailIngrediantsProps;
+  rawIngredients: RawCocktailIngredientsProps;
   isUserCreated?: boolean;
 };
