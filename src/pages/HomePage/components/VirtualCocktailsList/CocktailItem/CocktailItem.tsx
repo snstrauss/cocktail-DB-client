@@ -32,10 +32,10 @@ export default function CocktailItem({
     return null;
   }
 
-  const { name, thumbnail } = cocktail;
+  const { id, name, thumbnail, isUserCreated } = cocktail;
 
   function goToCocktailRecipe() {
-    navigate(`/recipe/${cocktail.id}`);
+    navigate(`/recipe/${id}?isUserCreated=${isUserCreated}`);
   }
 
   return (

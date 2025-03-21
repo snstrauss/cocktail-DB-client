@@ -81,4 +81,5 @@ export type Cocktail = {
     glass: Glass;
   };
   rawIngredients: RawCocktailIngrediantsProps;
+  isUserCreated?: boolean;
 };

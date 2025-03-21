@@ -41,8 +41,8 @@ export default function AddRecipe() {
     strInstructions,
     ...ingredients
   }: RecipeFormData) {
-    saveCocktailToLocalStorage(
-      toFormattedCocktail({
+    saveCocktailToLocalStorage({
+      ...toFormattedCocktail({
         idDrink: crypto.randomUUID().toString(),
         strDrink,
         strInstructions,
@@ -51,7 +51,9 @@ export default function AddRecipe() {
         strAlcoholic: "Alcoholic",
         strGlass: "Cocktail glass",
         ...ingredients,
-      })
+      }),
+      isUserCreated: true,
+    }
     );
 
     successMessageRef.current?.showModal();

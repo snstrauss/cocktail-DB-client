@@ -1,6 +1,6 @@
 import "./CocktailRecipe.scss";
 import { useMemo } from "react";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import bem from "../../common/bem";
 import { useCocktailById } from "../../appState/cocktails/cocktails.hooks";
 import { selectCocktailsFetchErrorMessage } from "../../appState/cocktails/cocktails.selectors";
@@ -82,11 +82,13 @@ function CocktailRecipe({ cocktail }: CocktailRecipeProps) {
 
 export default function CocktailRecipePage() {
   const params = useParams();
+  const [searchParams] = useSearchParams();
+  const isUserCreated = searchParams.get("isUserCreated") === "true";
 
   const potentialErrorMessage = useAppSelector(
     selectCocktailsFetchErrorMessage
   );
-  const cocktail = useCocktailById(params.cocktailId ?? "");
+  const cocktail = useCocktailById(params.cocktailId ?? "", isUserCreated);
 
   return (
     <div className={cocktailRecipeClassName()}>

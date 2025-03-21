@@ -94,19 +94,28 @@ export function useDebouncedCocktailsSearch() {
   });
 }
 
-export function useCocktailById(cocktailId: string) {
+export function useCocktailById(cocktailId: string, isUserCreated?: boolean) {
   const dispatch = useDispatch();
   const [cocktail, setCocktail] = useState<Cocktail | null>(null);
 
   useEffect(() => {
-    fetchSingleCocktail(cocktailId).then((response) => {
-      if (!response.drinks) {
-        dispatch(setCocktailsFetchErrorMessage("Cocktail not found"));
-      } else {
-        setCocktail(response.drinks.map(toFormattedCocktail)[0]);
-      }
-    });
-  }, [cocktailId, dispatch]);
+    if (isUserCreated) {
+      const cocktails = getCocktailsFromLocalStorage();
+      const cocktail = cocktails.find(
+        (cocktail: Cocktail) => cocktail.id === cocktailId
+      );
+
+      setCocktail(cocktail);
+    } else {
+      fetchSingleCocktail(cocktailId).then((response) => {
+        if (!response.drinks) {
+          dispatch(setCocktailsFetchErrorMessage("Cocktail not found"));
+        } else {
+          setCocktail(response.drinks.map(toFormattedCocktail)[0]);
+        }
+      });
+    }
+  }, [cocktailId, dispatch, isUserCreated]);
 
   return cocktail;
 }
