@@ -6,6 +6,7 @@ A React-based web client for [TheCocktailDB API](https://www.thecocktaildb.com).
 
 - Browse cocktail recipes
 - Search by name or ingredient
+- Add locally stored recipes of your own
 - Responsive design for both desktop and mobile devices (built mobile first)
 - Infinite scroll for smooth browsing experience
 
