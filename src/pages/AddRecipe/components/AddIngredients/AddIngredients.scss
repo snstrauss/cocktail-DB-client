@@ -1,7 +1,6 @@
 @use "../../../../common/mixins.scss" as *;
 
 .add-ingredients {
-  border: 2px solid deeppink;
   @include flex($gap: 1em, $align: flex-start);
 
   &__ingredient-field {

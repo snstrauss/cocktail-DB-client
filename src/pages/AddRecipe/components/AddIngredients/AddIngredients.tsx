@@ -19,12 +19,12 @@ export function AddIngredients() {
   return (
     <div className={addIngredientsClassNames()}>
       {Array.from({ length: ingredientsCounts }).map((_, index) => {
-        const ingredientName = `ingredients${index}`;
+        const ingredientName = `strIngredient${index}`;
 
         return (
           <div className={ingredientFieldClassNames()} key={ingredientName}>
             <FormField
-              name={`measure${index}`}
+              name={`strMeasure${index}`}
               placeholder="Measure"
               className={ingredientFieldClassNames("measure")}
             />

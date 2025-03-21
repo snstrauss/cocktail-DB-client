@@ -6,41 +6,68 @@ import { FormField } from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import { useRef } from "react";
 import { AddIngredients } from "./components/AddIngredients/AddIngredients";
-import { requiredFieldValidation } from "./components/addRecipeCommons";
+import {
+  getRandomCocktailThumbnail,
+  requiredFieldValidation,
+} from "./components/addRecipeCommons";
 import { Form } from "react-final-form";
+import { saveCocktailToLocalStorage } from "../../services/cocktailsLocalStorage";
+import { useNavigate } from "react-router";
+import SuccessMessage from "./components/SuccessMessage/SuccessMessage";
+import HomeButton from "../../components/HomeButton/HomeButton";
 
 const addRecipeClassNames = bem("add-recipe");
 
 type RecipeFormData = {
-  name: string;
-  instructions: string;
-  [key: `ingredient${number}`]: string;
-  [key: `measure${number}`]: string;
-}
+  strDrink: string;
+  strInstructions: string;
+  [key: `strIngredient${number}`]: string;
+  [key: `strMeasure${number}`]: string;
+};
 
 export default function AddRecipe() {
   const imageUrl = useRef<string>(null);
+  const successMessageRef = useRef<HTMLDialogElement>(null);
+
+  const navigate = useNavigate();
 
   function getImage({ dataUrl }: { file: File; dataUrl: string }) {
     imageUrl.current = dataUrl;
   }
 
-  function addCocktailToStorage(data: RecipeFormData) {
-    console.log(imageUrl.current);
-    console.log(data);
-    debugger;
+  function addCocktailToStorage({
+    strDrink,
+    strInstructions,
+    ...ingredients
+  }: RecipeFormData) {
+    saveCocktailToLocalStorage({
+      idDrink: crypto.randomUUID(),
+      strDrink,
+      strInstructions,
+      strDrinkThumb: imageUrl.current ?? getRandomCocktailThumbnail(),
+      ...ingredients,
+    });
+
+    successMessageRef.current?.showModal();
+    setTimeout(() => {
+      successMessageRef.current?.close();
+      navigate("/");
+    }, 2000);
   }
 
   return (
     <div className={addRecipeClassNames()}>
-      <Title>New Cocktail</Title>
+      <header>
+        <Title>New Cocktail</Title>
+        <HomeButton />
+      </header>
       <UploadImage onImageSelect={getImage} />
       <Form
         onSubmit={addCocktailToStorage}
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <FormField
-              name="name"
+              name="strDrink"
               validate={(value) =>
                 requiredFieldValidation(value, "Cocktail name is required")
               }
@@ -48,7 +75,7 @@ export default function AddRecipe() {
             />
             <AddIngredients />
             <FormField
-              name="instructions"
+              name="strInstructions"
               placeholder="How to make it?"
               textArea
             />
@@ -56,6 +83,7 @@ export default function AddRecipe() {
           </form>
         )}
       ></Form>
+      <SuccessMessage ref={successMessageRef} />
     </div>
   );
 }
