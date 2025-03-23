@@ -49,6 +49,10 @@ export function useInitializeCocktailsList() {
   useEffect(() => {
     fetchAllCocktails()
       .then((rawAllCocktails) => {
+        if (!rawAllCocktails.length) {
+          throw new Error("No cocktails found");
+        }
+
         const formattedAllCocktails = rawAllCocktails
           .flatMap((cocktailsByLetter) => cocktailsByLetter.drinks)
           .filter(Boolean)
